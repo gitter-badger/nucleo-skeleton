@@ -1,0 +1,23 @@
+{
+  "name": "testing-ENV",
+  "version": "1.0.0",
+  "description": "Just a place where i can experiment with architectural approaches for building a framework with TDD and ES6",
+  "main": "main.js",
+  "scripts": {
+    "test": "node tests"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dobre-robert-marius/testing-ENV.git"
+  },
+  "author": "dobre-robert-marius",
+  "license": "none",
+  "bugs": {
+    "url": "https://github.com/dobre-robert-marius/testing-ENV/issues"
+  },
+  "homepage": "https://github.com/dobre-robert-marius/testing-ENV",
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-babel": "^4.0.0"
+  }
+}
