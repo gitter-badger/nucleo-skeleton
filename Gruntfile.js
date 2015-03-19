@@ -4,15 +4,17 @@ module.exports = function(grunt) {
   grunt.initConfig({
     "babel": {
       options: {
-       	modules:'amdStrict'
+       	modules:'amdStrict',
+	moduleIds:true
       },
       dist: {
-        files: {
-	"dist/app.js": "src/app.js",
-	"dist/nume.js":"src/nume.js",
-	"dist/adunare.js":"src/calcule/adunare.js",
-	"dist/scadere.js":"src/calcule/scadere.js"
-        }
+	files:[{
+		"expand":true,
+		"cwd": "src",
+		"src":["**/*.js"],
+		"dest":"dist",
+		"ext":".js"
+	}]
       }
     }
   });
