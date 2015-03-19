@@ -4,12 +4,14 @@ module.exports = function(grunt) {
   grunt.initConfig({
     "babel": {
       options: {
-        sourceMap: true,
-	modules:'amd'
+       	modules:'amdStrict'
       },
       dist: {
         files: {
-          "dist/app.js": "src/app.js"
+	"dist/app.js": "src/app.js",
+	"dist/nume.js":"src/nume.js",
+	"dist/adunare.js":"src/calcule/adunare.js",
+	"dist/scadere.js":"src/calcule/scadere.js"
         }
       }
     }

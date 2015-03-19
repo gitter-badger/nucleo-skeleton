@@ -1,5 +1,11 @@
 import nume from 'nume';
+import adunare from 'calcule/adunare';
+import scadere from 'calcule/scadere';
 
-var framework = nume;
+var rezultate = {
+	framework: nume,
+	plus: adunare(1, 2),
+	minus: scadere(9, 3)
+};
 
-export default framework;
+export default rezultate;
