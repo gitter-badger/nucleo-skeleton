@@ -1,0 +1,6 @@
+/*!
+ * @overview  FRAMEWORK_NAME_PLACEHOLDER
+ * @license   Licensed under MIT license
+ *            See FRAMEWORK_URL_LICENSE
+ * @version   VERSION_STRING_PLACEHOLDER
+ */
