@@ -4,3 +4,6 @@ Just a place where i can experiment with architectural approaches for building a
 ### Install
 	npm install
 	npm install -g grunt-cli
+
+### Usage
+	grunt
