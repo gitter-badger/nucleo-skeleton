@@ -10,7 +10,7 @@ module.exports = function(grunt) {
       dist: {
 	files:[{
 		"expand":true,
-		"cwd": "src",
+		"cwd": "packages/demo",
 		"src":["**/*.js"],
 		"dest":"dist",
 		"ext":".js"
