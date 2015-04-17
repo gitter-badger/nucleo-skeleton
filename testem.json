@@ -1,0 +1,12 @@
+{
+    "framework": "qunit",
+    "before_tests": "cp -a tests/. ephemeral/",
+    "src_files": [
+        "lib/resources/amd-loader-definition.js",
+        "tests/**/*.js"
+    ],
+    "serve_files": [
+        "lib/resources/amd-loader-definition.js",
+        "ephemeral/demo_tests.js"
+    ]
+}
