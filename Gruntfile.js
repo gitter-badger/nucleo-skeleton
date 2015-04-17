@@ -4,17 +4,17 @@ module.exports = function(grunt) {
   grunt.initConfig({
     "babel": {
       options: {
-       	modules:'amdStrict',
-	moduleIds:true
+        modules: 'amdStrict',
+        moduleIds: true
       },
       dist: {
-	files:[{
-		"expand":true,
-		"cwd": "packages/demo",
-		"src":["**/*.js"],
-		"dest":"dist",
-		"ext":".js"
-	}]
+        files: [{
+          "expand": true,
+          "cwd": "packages/demo",
+          "src": ["**/*.js"],
+          "dest": "ephemeral/packages",
+          "ext": ".js"
+       }]
       }
     }
   });
