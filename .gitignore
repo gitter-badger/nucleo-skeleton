@@ -1,3 +1,4 @@
 node_modules/
 dist/
 ephemeral/
+npm-debug.log
