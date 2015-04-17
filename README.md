@@ -7,3 +7,7 @@ Just a place where i can experiment with architectural approaches for building a
 
 ### Usage
 	grunt
+
+### Testing
+    npm install testem -g
+    testem
