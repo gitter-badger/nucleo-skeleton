@@ -23,6 +23,7 @@ var buildPlan = function() {
 
     fse.writeFileSync(qunitDirectory + 'index.html', mainFile, 'utf-8');
     fse.copySync('./qunit/qunit.js', qunitDirectory + 'qunit.js');
+    fse.copySync('./qunit/qunit-notifications.js', qunitDirectory + 'qunit-notifications.js');
     fse.copySync('./qunit/qunit.css', qunitDirectory + 'qunit.css');
 
     console.log('BUILDING STATUS:::::::::::::: SUCCESS');
