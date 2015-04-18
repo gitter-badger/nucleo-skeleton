@@ -9,7 +9,8 @@ Just a place where i can experiment with architectural approaches for building a
 	grunt
 
 ### Testing
-    npm install testem -g
+    npm install -g testem
+    npm install -g phantomjs 
     testem
 
 ## Authors ##
