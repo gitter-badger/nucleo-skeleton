@@ -5,7 +5,7 @@ var configPath = rootPath + 'config/';
 var testsPath = rootPath + 'tests/';
 var options = process.argv;
 var isVerbose = options.indexOf('--verbose') > -1;
-
+var Radar = require(rootPath + 'utils/Radar');
 
 var buildPlan = function() {
 
@@ -33,7 +33,13 @@ var executeBuildingPlan = function() {
 
     try {
 
+        var radar = new Radar();
+
+        radar.start();
+
         buildPlan.call(this, arguments);
+
+        radar.end('Build QUnit');
 
     } catch (err) {
 
