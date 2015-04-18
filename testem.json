@@ -1,12 +1,10 @@
 {
     "framework": "qunit",
-    "before_tests": "cp -a tests/. ephemeral/",
+    "before_tests": "cp -a tests/. ephemeral/ && cd ephemeral/build/ && rm build-qunit-tests.js",
     "src_files": [
-        "lib/resources/amd-loader-definition.js",
-        "tests/**/*.js"
+        "tests/demo_tests.js"
     ],
     "serve_files": [
-        "lib/resources/amd-loader-definition.js",
-        "ephemeral/demo_tests.js"
+        "ephemeral/build/main.js"
     ]
 }
