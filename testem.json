@@ -1,6 +1,6 @@
 {
     "framework": "jasmine",
-    "before_tests": "cp -a tests/demo_tests.js ephemeral/",
+    "before_tests": "mkdir -p ephemeral && cp -a tests/demo_tests.js ephemeral/",
     "src_files": [
         "tests/demo_tests.js"
     ],
