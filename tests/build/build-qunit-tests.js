@@ -9,10 +9,10 @@ var Radar = require(rootPath + 'utils/Radar');
 
 var buildPlan = function() {
 
-    var qunitDirectory = rootPath + 'ephemeral/tests/qunit/';
+    var testingFrameworkDirectory = rootPath + 'ephemeral/build/tests/qunit/';
 
-    if (!fse.existsSync(qunitDirectory)) {
-        fse.mkdirsSync(qunitDirectory);
+    if (!fse.existsSync(testingFrameworkDirectory)) {
+        fse.mkdirsSync(testingFrameworkDirectory);
     }
 
     var mainFile = fse.readFileSync('./qunit/index.html', 'utf-8');
@@ -21,10 +21,10 @@ var buildPlan = function() {
 
     mainFile = mainFile.replace('{{tests}}', testsScriptTag);
 
-    fse.writeFileSync(qunitDirectory + 'index.html', mainFile, 'utf-8');
-    fse.copySync('./qunit/qunit.js', qunitDirectory + 'qunit.js');
-    fse.copySync('./qunit/qunit-notifications.js', qunitDirectory + 'qunit-notifications.js');
-    fse.copySync('./qunit/qunit.css', qunitDirectory + 'qunit.css');
+    fse.writeFileSync(testingFrameworkDirectory + 'index.html', mainFile, 'utf-8');
+    fse.copySync('./qunit/qunit.js', testingFrameworkDirectory + 'qunit.js');
+    fse.copySync('./qunit/qunit-notifications.js', testingFrameworkDirectory + 'qunit-notifications.js');
+    fse.copySync('./qunit/qunit.css', testingFrameworkDirectory + 'qunit.css');
 
     console.log('BUILDING STATUS:::::::::::::: SUCCESS');
 
