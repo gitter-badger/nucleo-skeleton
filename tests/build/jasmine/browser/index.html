@@ -1,0 +1,25 @@
+
+<!doctype html>
+<html>
+	<head>
+		<title>Jasmine</title>
+			<link rel="stylesheet" href="jasmine.css">
+			<script src="jasmine.js"></script>
+			<script src="jasmine-html.js"></script>
+			<script>
+			    (function() {
+			      var jasmineEnv = jasmine.getEnv()
+			      jasmineEnv.addReporter(new jasmine.HtmlReporter)
+
+			      window.onload = function() {
+			        jasmineEnv.execute()
+			      };
+			    })();
+			</script>
+			<script src="expect.js"></script>
+			{{tests}}
+	</head>
+	<body>
+		<div id="jasmine_content"></div>
+	</body>
+</html>
