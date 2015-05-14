@@ -5,7 +5,7 @@ var insertUnitTests = function(paths){
     var config = JSON.parse(fse.readFileSync(paths.config + 'build.config'));
     var mainFilePath = paths.root + config.mainLibPath + config.mainLibName;
     var mainFile = fse.readFileSync(mainFilePath, 'utf-8');
-    var tests = fse.readFileSync(paths.tests + 'demo_tests.js', 'utf-8');
+    var tests = fse.readFileSync(paths.tests + 'amd_tests.js', 'utf-8');
 
     mainFile = mainFile.replace('{{tests}}', tests);
 

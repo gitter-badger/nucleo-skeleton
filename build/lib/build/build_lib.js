@@ -1,4 +1,4 @@
-var rootPath = './../../';
+var rootPath = './../../../';
 var configPath = rootPath + 'config/';
 var actionsPath = './../actions/';
 var resourcesPath = './../resources/';
