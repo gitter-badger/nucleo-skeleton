@@ -6,7 +6,7 @@ var configPath = rootPath + 'config/';
 var testsPath = rootPath + 'tests/';
 var options = process.argv;
 var isVerbose = options.indexOf('--verbose') > -1;
-var Radar = require(rootPath + 'utils/Radar');
+var Radar = require(rootPath + 'build/utils/Radar');
 
 var buildPlan = function() {
 

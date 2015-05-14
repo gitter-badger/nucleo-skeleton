@@ -3,7 +3,7 @@ var actionsPath = './../actions/';
 var resourcesPath = './../resources/';
 var testsPath = rootPath + 'tests/';
 var packagesPath = rootPath + 'packages/';
-var mainLibPath = 'ephemeral/build';
+var mainLibPath = 'ephemeral/build/';
 var mainLibName = 'main.js';
 var options = process.argv;
 var isVerbose = options.indexOf('--verbose') > -1;
@@ -14,7 +14,7 @@ var insertAmdLoader = require(actionsPath + 'insert-amd-loader');
 var insertPackages = require(actionsPath + 'insert-packages');
 var insertUnitTests = require(actionsPath + 'insert-unit-tests');
 var insertExposer = require(actionsPath + 'insert-exposer-to-global');
-var Radar = require(rootPath + 'utils/Radar');
+var Radar = require(rootPath + 'build/utils/Radar');
 
 
 var buildPlan = function() {
@@ -23,7 +23,6 @@ var buildPlan = function() {
     var mainLibFile = mainLibDirectory + mainLibName;
     var paths = {
         root: rootPath,
-        mainLib: mainLibDirectory,
         mainFilePath: mainLibFile,
         resources: resourcesPath,
         packages: packagesPath,

@@ -1,5 +1,3 @@
-var colors = require('colors');
-
 var getParsedSection = function(section){
 
 	var title = section + ': ';
@@ -12,12 +10,12 @@ var getParsedSection = function(section){
 var log = {
 	info : function(section, message){
 
-		console.log(colors.bold.blue(getParsedSection(section)) + colors.black(message));
+		console.log(getParsedSection(section) + message);
 	
 	},
 	error : function(section, message){
 
-		console.log(colors.bold.magenta(getParsedSection(section)) + colors.red(message));
+		console.log(getParsedSection(section) + message);
 
 	}
 };
