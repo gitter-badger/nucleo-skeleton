@@ -2,14 +2,12 @@ var fse = require('fs-extra');
 
 var insertUnitTests = function(paths){
 
-    var config = JSON.parse(fse.readFileSync(paths.config + 'build.config'));
-    var mainFilePath = paths.root + config.mainLibPath + config.mainLibName;
-    var mainFile = fse.readFileSync(mainFilePath, 'utf-8');
+    var mainFile = fse.readFileSync(paths.mainFilePath, 'utf-8');
     var tests = fse.readFileSync(paths.tests + 'amd_tests.js', 'utf-8');
 
     mainFile = mainFile.replace('{{tests}}', tests);
 
-    fse.writeFileSync(mainFilePath, mainFile, 'utf-8');
+    fse.writeFileSync(paths.mainFilePath, mainFile, 'utf-8');
 
 };
 

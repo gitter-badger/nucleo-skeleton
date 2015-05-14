@@ -1,9 +1,10 @@
 var rootPath = './../../../';
-var configPath = rootPath + 'config/';
 var actionsPath = './../actions/';
 var resourcesPath = './../resources/';
 var testsPath = rootPath + 'tests/';
 var packagesPath = rootPath + 'packages/';
+var mainLibPath = 'ephemeral/build';
+var mainLibName = 'main.js';
 var options = process.argv;
 var isVerbose = options.indexOf('--verbose') > -1;
 
@@ -18,13 +19,12 @@ var Radar = require(rootPath + 'utils/Radar');
 
 var buildPlan = function() {
 
-    var config = JSON.parse(fse.readFileSync(configPath + 'build.config'));
-    var mainLibDirectory = rootPath + config.mainLibPath;
-    var mainLibFile = mainLibDirectory + config.mainLibName;
+    var mainLibDirectory = rootPath + mainLibPath;
+    var mainLibFile = mainLibDirectory + mainLibName;
     var paths = {
         root: rootPath,
-        config: configPath,
         mainLib: mainLibDirectory,
+        mainFilePath: mainLibFile,
         resources: resourcesPath,
         packages: packagesPath,
         tests: testsPath
@@ -42,20 +42,17 @@ var buildPlan = function() {
     insertUnitTests(paths);
     insertExposer(paths);
 
-    validateBuildProcessFinishedSuccessfully(config, mainLibDirectory, mainLibFile);
+    validateBuildProcessFinishedSuccessfully(mainLibDirectory, mainLibFile);
 
 };
 
-var validateBuildProcessFinishedSuccessfully = function(config, mainLibDirectory, mainLibFile) {
+var validateBuildProcessFinishedSuccessfully = function(mainLibDirectory, mainLibFile) {
 
     console.log('BUILDING STATUS:::::::::::::: SUCCESS');
 
     if (!isVerbose) {
         return;
     }
-
-    console.log('CONFIG:');
-    console.log(config);
 
     console.log('MainLib Directory exists: ', fse.existsSync(mainLibDirectory));
     console.log('MainLib File exists: ', fse.existsSync(mainLibFile));
