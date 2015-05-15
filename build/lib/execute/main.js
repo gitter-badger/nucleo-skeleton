@@ -5,6 +5,8 @@ var testsPath = rootPath + 'tests/';
 var packagesPath = rootPath + 'packages/';
 var mainLibPath = 'ephemeral/build/';
 var mainLibName = 'main.js';
+var blueprintPath = './../blueprint.tmpl';
+
 var options = process.argv;
 var isVerbose = options.indexOf('--verbose') > -1;
 
@@ -32,6 +34,16 @@ var actionsConfig = {
     ]
 };
 
+var copyBlueprint = function(){
+
+    if (!fse.existsSync(mainLibDirectory)) {
+        fse.mkdirsSync(mainLibDirectory);
+    }
+
+    fse.copySync(blueprintPath, mainLibFile);
+
+};
+
 var executeInsertActions = function(config){
 
     var actions = {};
@@ -50,11 +62,7 @@ var executeInsertActions = function(config){
 
 var buildPlan = function() {
 
-    if (!fse.existsSync(mainLibDirectory)) {
-        fse.mkdirsSync(mainLibDirectory);
-    }
-
-    fse.copySync('./../blueprint.tmpl', mainLibFile);
+    copyBlueprint();
 
     executeInsertActions(actionsConfig);
 
