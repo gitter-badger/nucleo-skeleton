@@ -7,12 +7,6 @@ var mainLibPath = 'ephemeral/build/';
 var mainLibName = 'main.js';
 var blueprintPath = './../blueprint.tmpl';
 
-var options = process.argv;
-var isVerbose = options.indexOf('--verbose') > -1;
-
-var fse = require('fs-extra');
-var Radar = require(rootPath + 'build/utils/Radar');
-
 var mainLibDirectory = rootPath + mainLibPath;
 var mainLibFile = mainLibDirectory + mainLibName;
 var paths = {
@@ -32,6 +26,19 @@ var actionsConfig = {
         'insert-unit-tests',
         'insert-exposer-to-global'
     ]
+};
+
+var Radar;
+
+var options = process.argv;
+var isVerbose = options.indexOf('--verbose') > -1;
+
+var fse = require('fs-extra');
+
+var loadRadar = function(){
+
+    Radar = require(rootPath + 'build/utils/Radar');
+
 };
 
 var copyBlueprint = function(){
@@ -98,6 +105,8 @@ var validateBuildProcessFinishedSuccessfully = function(mainLibDirectory, mainLi
 var executeBuildingPlan = function() {
 
     try {
+
+        loadRadar();
 
         var radar = new Radar();
 
