@@ -1,38 +1,78 @@
 var fse = require('fs-extra');
 var _ = require('lodash');
 
-var rootPath = './../../';
-var configPath = rootPath + 'config/';
-var testsPath = rootPath + 'tests/';
 var options = process.argv;
 var isVerbose = options.indexOf('--verbose') > -1;
-var Radar = require(rootPath + 'build/utils/Radar');
 
-var buildPlan = function() {
+var Radar;
 
-    var testingFrameworkName = 'jasmine';
-    var testingFrameworkDirectory = rootPath + 'ephemeral/build/tests/' + testingFrameworkName + '/browser/';
-    var mochaBrowserDirectory = './' + testingFrameworkName + '/browser/';
+var loadRadar = function(){
+
+    Radar = require(rootPath + 'build/utils/Radar');
+
+};
+
+var makeGlobals = function(){
+
+    rootPath = './../../';
+    configPath = rootPath + 'config/';
+    testsPath = rootPath + 'tests/';
+    testingFrameworkName = 'jasmine';
+    testingFrameworkDirectory = rootPath + 'ephemeral/build/tests/' + testingFrameworkName + '/browser/';
+    mochaBrowserDirectory = './' + testingFrameworkName + '/browser/';
+
+    testsLinks = [
+        '../../../../../lib/resources/amd-loader-definition.js',
+        '../../../../../tests/jasmine_tests.js'
+    ];
+    testsScriptTags = _.map(testsLinks, function(link){
+        return '<script src="' + link + '"></script>';
+    });
+
+    copyConfig = {
+        from: mochaBrowserDirectory,
+        to: testingFrameworkDirectory,
+        files:[
+            'jasmine.js',
+            'jasmine-html.js',
+            'expect.js',
+            'jasmine.css'
+        ]
+    };
+
+};
+
+var copyTestingFrameworksFiles = function(config){
+
+    for (var i = 0; i < config.files.length; i++) {
+
+        var fileName = config.files[i];
+
+        fse.copySync(config.from + fileName, config.to + fileName);
+
+    }
+
+};
+
+var generateIndexHtml = function(){
 
     if (!fse.existsSync(testingFrameworkDirectory)) {
         fse.mkdirsSync(testingFrameworkDirectory);
     }
 
     var mainFile = fse.readFileSync(mochaBrowserDirectory + 'index.html', 'utf-8');
-    var testsLinks = ['../../../../../lib/resources/amd-loader-definition.js', '../../../../../tests/jasmine_tests.js'];
-    var testsScriptTags = _.map(testsLinks, function(link){
-        return '<script src="' + link + '"></script>';
-    });
 
     mainFile = mainFile.replace('{{tests}}', testsScriptTags.join('\n'));
 
     fse.writeFileSync(testingFrameworkDirectory + 'index.html', mainFile, 'utf-8');
-    fse.copySync(mochaBrowserDirectory + 'jasmine.js', testingFrameworkDirectory + 'jasmine.js');
-    fse.copySync(mochaBrowserDirectory + 'jasmine-html.js', testingFrameworkDirectory + 'jasmine-html.js');
-    fse.copySync(mochaBrowserDirectory + 'expect.js', testingFrameworkDirectory + 'expect.js');
-    fse.copySync(mochaBrowserDirectory + 'jasmine.css', testingFrameworkDirectory + 'jasmine.css');
 
-    console.log('BUILDING STATUS:::::::::::::: SUCCESS');
+};
+
+var buildPlan = function() {
+
+    generateIndexHtml();
+
+    copyTestingFrameworksFiles(copyConfig);
 
 };
 
@@ -40,11 +80,16 @@ var executeBuildingPlan = function() {
 
     try {
 
+        makeGlobals();
+        loadRadar();
+
         var radar = new Radar();
 
         radar.start();
 
         buildPlan.call(this, arguments);
+
+        console.log('BUILDING STATUS:::::::::::::: SUCCESS');
 
         radar.end('Build Jasmine');
 
