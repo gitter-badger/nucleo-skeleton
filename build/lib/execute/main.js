@@ -9,25 +9,46 @@ var options = process.argv;
 var isVerbose = options.indexOf('--verbose') > -1;
 
 var fse = require('fs-extra');
-var insertLicense = require(actionsPath + 'insert-license');
-var insertAmdLoader = require(actionsPath + 'insert-amd-loader');
-var insertPackages = require(actionsPath + 'insert-packages');
-var insertUnitTests = require(actionsPath + 'insert-unit-tests');
-var insertExposer = require(actionsPath + 'insert-exposer-to-global');
 var Radar = require(rootPath + 'build/utils/Radar');
 
+var mainLibDirectory = rootPath + mainLibPath;
+var mainLibFile = mainLibDirectory + mainLibName;
+var paths = {
+    root: rootPath,
+    mainFilePath: mainLibFile,
+    resources: resourcesPath,
+    packages: packagesPath,
+    tests: testsPath
+};
+var actionsConfig = {
+    cwd: actionsPath,
+    paths: paths, 
+    files:[
+        'insert-license',
+        'insert-amd-loader',
+        'insert-packages',
+        'insert-unit-tests',
+        'insert-exposer-to-global'
+    ]
+};
+
+var executeInsertActions = function(config){
+
+    var actions = {};
+
+    for (var i = 0; i < config.files.length; i++) {
+
+        var actionName = config.files[i];
+
+        actions[actionName] = require(config.cwd + actionName);
+
+        actions[actionName].call(this, config.paths);
+
+    }
+
+};
 
 var buildPlan = function() {
-
-    var mainLibDirectory = rootPath + mainLibPath;
-    var mainLibFile = mainLibDirectory + mainLibName;
-    var paths = {
-        root: rootPath,
-        mainFilePath: mainLibFile,
-        resources: resourcesPath,
-        packages: packagesPath,
-        tests: testsPath
-    };
 
     if (!fse.existsSync(mainLibDirectory)) {
         fse.mkdirsSync(mainLibDirectory);
@@ -35,11 +56,7 @@ var buildPlan = function() {
 
     fse.copySync('./../blueprint.tmpl', mainLibFile);
 
-    insertLicense(paths);
-    insertAmdLoader(paths);
-    insertPackages(paths);
-    insertUnitTests(paths);
-    insertExposer(paths);
+    executeInsertActions(actionsConfig);
 
     validateBuildProcessFinishedSuccessfully(mainLibDirectory, mainLibFile);
 
