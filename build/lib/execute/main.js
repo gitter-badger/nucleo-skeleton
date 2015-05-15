@@ -1,79 +1,47 @@
-var rootPath = './../../../';
-var actionsPath = './../actions/';
-var resourcesPath = './../resources/';
-var testsPath = rootPath + 'tests/';
-var packagesPath = rootPath + 'packages/';
-var mainLibPath = 'ephemeral/build/';
-var mainLibName = 'main.js';
-var blueprintPath = './../blueprint.tmpl';
-
-var mainLibDirectory = rootPath + mainLibPath;
-var mainLibFile = mainLibDirectory + mainLibName;
-var paths = {
-    root: rootPath,
-    mainFilePath: mainLibFile,
-    resources: resourcesPath,
-    packages: packagesPath,
-    tests: testsPath
-};
-var actionsConfig = {
-    cwd: actionsPath,
-    paths: paths, 
-    files:[
-        'insert-license',
-        'insert-amd-loader',
-        'insert-packages',
-        'insert-unit-tests',
-        'insert-exposer-to-global'
-    ]
-};
-
-var Radar;
+var fse = require('fs-extra');
 
 var options = process.argv;
 var isVerbose = options.indexOf('--verbose') > -1;
 
-var fse = require('fs-extra');
+var Radar;
+
+var makeGlobals = function(){
+
+    rootPath = './../../../';
+    actionsPath = './../actions/';
+    resourcesPath = './../resources/';
+    testsPath = rootPath + 'tests/';
+    packagesPath = rootPath + 'packages/';
+    mainLibPath = 'ephemeral/build/';
+    mainLibName = 'main.js';
+    blueprintPath = './../blueprint.tmpl';
+
+    mainLibDirectory = rootPath + mainLibPath;
+    mainLibFile = mainLibDirectory + mainLibName;
+    paths = {
+        root: rootPath,
+        mainFilePath: mainLibFile,
+        resources: resourcesPath,
+        packages: packagesPath,
+        tests: testsPath
+    };
+    actionsConfig = {
+        cwd: actionsPath,
+        paths: paths, 
+        files:[
+            'insert-license',
+            'insert-amd-loader',
+            'insert-packages',
+            'insert-unit-tests',
+            'insert-exposer-to-global'
+        ]
+    };
+
+};
 
 var loadRadar = function(){
 
     Radar = require(rootPath + 'build/utils/Radar');
-
-};
-
-var copyBlueprint = function(){
-
-    if (!fse.existsSync(mainLibDirectory)) {
-        fse.mkdirsSync(mainLibDirectory);
-    }
-
-    fse.copySync(blueprintPath, mainLibFile);
-
-};
-
-var executeInsertActions = function(config){
-
-    var actions = {};
-
-    for (var i = 0; i < config.files.length; i++) {
-
-        var actionName = config.files[i];
-
-        actions[actionName] = require(config.cwd + actionName);
-
-        actions[actionName].call(this, config.paths);
-
-    }
-
-};
-
-var buildPlan = function() {
-
-    copyBlueprint();
-
-    executeInsertActions(actionsConfig);
-
-    validateBuildProcessFinishedSuccessfully(mainLibDirectory, mainLibFile);
 
 };
 
@@ -102,10 +70,47 @@ var validateBuildProcessFinishedSuccessfully = function(mainLibDirectory, mainLi
 
 };
 
+var executeInsertActions = function(config){
+
+    var actions = {};
+
+    for (var i = 0; i < config.files.length; i++) {
+
+        var actionName = config.files[i];
+
+        actions[actionName] = require(config.cwd + actionName);
+
+        actions[actionName].call(this, config.paths);
+
+    }
+
+};
+
+var copyBlueprint = function(){
+
+    if (!fse.existsSync(mainLibDirectory)) {
+        fse.mkdirsSync(mainLibDirectory);
+    }
+
+    fse.copySync(blueprintPath, mainLibFile);
+
+};
+
+var buildPlan = function() {
+
+    copyBlueprint();
+
+    executeInsertActions(actionsConfig);
+
+    validateBuildProcessFinishedSuccessfully(mainLibDirectory, mainLibFile);
+
+};
+
 var executeBuildingPlan = function() {
 
     try {
 
+        makeGlobals();
         loadRadar();
 
         var radar = new Radar();
