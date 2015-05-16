@@ -1,5 +1,5 @@
 {
-  "name": "AMD play",
+  "name": "AMD-play",
   "version": "1.0.0",
   "description": "Just a place where i can experiment with architectural approaches for building a framework with TDD and ES6",
   "main": "main.js",
