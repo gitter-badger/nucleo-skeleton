@@ -1,64 +1,20 @@
-var fse = require('fs-extra');
-var _ = require('lodash');
+var buildTests = require('./TestsBuilder');
 
-var rootPath = './../../';
-var configPath = rootPath + 'config/';
-var testsPath = rootPath + 'tests/';
 var options = process.argv;
 var isVerbose = options.indexOf('--verbose') > -1;
-var Radar = require(rootPath + 'build/utils/Radar');
 
-var buildPlan = function() {
-
-    var testingFrameworkName = 'mocha';
-    var testingFrameworkDirectory = rootPath + 'ephemeral/build/tests/' + testingFrameworkName + '/browser/';
-    var mochaBrowserDirectory = './' + testingFrameworkName + '/browser/';
-
-    if (!fse.existsSync(testingFrameworkDirectory)) {
-        fse.mkdirsSync(testingFrameworkDirectory);
-    }
-
-    var mainFile = fse.readFileSync(mochaBrowserDirectory + 'index.html', 'utf-8');
-    var testsLinks = ['../../../../../lib/resources/amd-loader-definition.js', '../../../../../tests/mocha_tests.js'];
-    var testsScriptTags = _.map(testsLinks, function(link){
-        return '<script src="' + link + '"></script>';
-    });
-
-    mainFile = mainFile.replace('{{tests}}', testsScriptTags.join('\n'));
-
-    fse.writeFileSync(testingFrameworkDirectory + 'index.html', mainFile, 'utf-8');
-    fse.copySync(mochaBrowserDirectory + 'mocha.js', testingFrameworkDirectory + 'mocha.js');
-    fse.copySync(mochaBrowserDirectory + 'expect.js', testingFrameworkDirectory + 'expect.js');
-    fse.copySync(mochaBrowserDirectory + 'mocha.css', testingFrameworkDirectory + 'mocha.css');
-
-    console.log('BUILDING STATUS:::::::::::::: SUCCESS');
-
+var config = {
+    framework: 'mocha',
+    environment: 'browser',
+    html: 'index.html',
+    sources: ['build/lib/resources/amd-loader-definition.js'],
+    tests: ['tests/mocha_tests.js'],
+    resources: [
+        'mocha.js',
+        'expect.js',
+        'mocha.css'
+    ],
+    verbose: isVerbose
 };
 
-var executeBuildingPlan = function() {
-
-    try {
-
-        var radar = new Radar();
-
-        radar.start();
-
-        buildPlan.call(this, arguments);
-
-        radar.end('Build Mocha');
-
-    } catch (err) {
-
-        console.log('::::::::::::::Build FAILED:');
-        console.log(err);
-
-        if (isVerbose) {
-            console.trace();
-        }
-
-    }
-
-};
-
-
-executeBuildingPlan();
+buildTests(config);
