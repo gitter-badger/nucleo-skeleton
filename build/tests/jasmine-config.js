@@ -1,8 +1,3 @@
-var buildTests = require('./TestsBuilder');
-
-var options = process.argv;
-var isVerbose = options.indexOf('--verbose') > -1;
-
 var config = {
     framework: 'jasmine',
     environment: 'browser',
@@ -14,8 +9,7 @@ var config = {
         'jasmine-html.js',
         'expect.js',
         'jasmine.css'
-    ],
-    verbose: isVerbose
+    ]
 };
 
-buildTests(config);
+module.exports = config;

@@ -1,11 +1,26 @@
 var fse = require('fs-extra');
 var _ = require('lodash');
 
+var options = process.argv;
+var isVerbose = options.indexOf('--verbose') > -1;
+
 var Radar;
 
 var loadRadar = function(){
 
     Radar = require(rootPath + 'build/utils/Radar');
+
+};
+
+var getConfig = function(){
+
+    var configFilename = process.argv[2];
+
+    config = require('./' + configFilename);
+
+    config.verbose = isVerbose;
+
+    return config;
 
 };
 
@@ -97,7 +112,9 @@ var executeBuildingPlan = function(configBuilder) {
 
     try {
 
-        makeGlobals(configBuilder);
+        var config = getConfig();
+
+        makeGlobals(config);
         loadRadar();
 
         var radar = new Radar();
@@ -108,14 +125,14 @@ var executeBuildingPlan = function(configBuilder) {
 
         console.log('BUILDING STATUS:::::::::::::: SUCCESS');
 
-        radar.end('Build ' + configBuilder.framework);
+        radar.end('Build ' + config.framework);
 
     } catch (err) {
 
         console.log('::::::::::::::Build FAILED:');
         console.log(err);
 
-        if (configBuilder.verbose) {
+        if (config.verbose) {
             console.trace();
         }
 
@@ -124,4 +141,4 @@ var executeBuildingPlan = function(configBuilder) {
 };
 
 
-module.exports = executeBuildingPlan;
+executeBuildingPlan();

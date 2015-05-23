@@ -1,8 +1,3 @@
-var buildTests = require('./TestsBuilder');
-
-var options = process.argv;
-var isVerbose = options.indexOf('--verbose') > -1;
-
 var config = {
     framework: 'mocha',
     environment: 'browser',
@@ -13,8 +8,7 @@ var config = {
         'mocha.js',
         'expect.js',
         'mocha.css'
-    ],
-    verbose: isVerbose
+    ]
 };
 
-buildTests(config);
+module.exports = config;
