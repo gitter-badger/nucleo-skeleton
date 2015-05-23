@@ -7,7 +7,7 @@
     "serve_files": [
         "tests/build/mocha/browser/expect.js",
         "lib/resources/amd-loader-definition.js",
-        "tests/jasmine_tests.js"
+        "tests/unit/demo-structure/jasmine_tests.js"
     ],
     "launch_in_ci": [
         "PhantomJS"

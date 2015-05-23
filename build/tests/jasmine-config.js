@@ -3,7 +3,7 @@ var config = {
     environment: 'browser',
     html: 'index.html',
     sources: ['build/lib/resources/amd-loader-definition.js'],
-    tests: ['tests/jasmine_tests.js'],
+    tests: ['tests/demo-structure/jasmine_tests.js'],
     resources: [
         'jasmine.js',
         'jasmine-html.js',
