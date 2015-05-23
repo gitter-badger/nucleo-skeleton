@@ -8,7 +8,7 @@ var Radar;
 var makeGlobals = function(){
 
     rootPath = './../../../';
-    actionsPath = './../actions/';
+    actionsPath = './actions/';
     resourcesPath = './../resources/';
     testsPath = rootPath + 'tests/';
     packagesPath = rootPath + 'packages/';
