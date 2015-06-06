@@ -1,19 +1,20 @@
 {
-    "framework": "jasmine",
-    "before_tests": "mkdir -p ephemeral && cp -a tests/demo_tests.js ephemeral/",
+    "framework": "qunit",
+    "before_tests": "mkdir -p ephemeral",
     "src_files": [
-        "tests/demo_tests.js"
+        "tests/demo_structure/qunit_tests.js",
+        "build/lib/resources/amd-loader-definition.js",
+        "tests/unit/amd/main.js"
     ],
     "serve_files": [
         "tests/build/mocha/browser/expect.js",
-        "lib/resources/amd-loader-definition.js",
-        "tests/unit/demo-structure/jasmine_tests.js"
+        "build/lib/resources/amd-loader-definition.js",
+        "tests/unit/amd/main.js"
     ],
     "launch_in_ci": [
         "PhantomJS"
     ],
     "launch_in_dev": [
-        "PhantomJS",
-        "Chrome"
+        "PhantomJS"
     ]
 }
