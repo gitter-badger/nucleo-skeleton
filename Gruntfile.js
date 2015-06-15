@@ -18,8 +18,8 @@ module.exports = function(grunt) {
       }
     },
     concat:{
-      mocha:{
-        src:['tests/unit/**/*.js'],
+      qunit:{
+        src:['tests/unit/amd/**/*.js'],
         dest:'ephemeral/tests/demo/tests.js'
       }
     }
@@ -30,9 +30,9 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-concat');
 
   // Default task(s).
-  grunt.registerTask('build:tests:mocha', ['concat:mocha']);
-  grunt.registerTask('build:tests:jasmine', ['concat:mocha']);
-  grunt.registerTask('build:tests:qunit', ['concat:mocha']);
+  grunt.registerTask('build:tests:mocha', ['concat:qunit']);
+  grunt.registerTask('build:tests:jasmine', ['concat:qunit']);
+  grunt.registerTask('build:tests:qunit', ['concat:qunit']);
   grunt.registerTask('default', ['babel']);
 
 };
