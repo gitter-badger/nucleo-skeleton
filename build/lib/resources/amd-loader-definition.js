@@ -29,9 +29,11 @@ var AMD;
 
     };
 
-    var require = function(name) {
+    var require = function(name, submodule) {
 
-        return internalRequire(name, null);
+        var module = internalRequire(name, null);
+
+        return module[submodule || 'default'];
 
     }
 
