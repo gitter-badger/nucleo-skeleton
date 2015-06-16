@@ -26,6 +26,10 @@ var AMD;
 
         }
 
+        if(registry[name]){
+            throw new Error('duplicatedModule ' + name);
+        }
+
         registry[name] = value;
 
         registryLength++;

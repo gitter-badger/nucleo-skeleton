@@ -5,12 +5,13 @@
 // instance of an custom object
 // should not update reference. export number. update number. next require should have the initial value
 
-
-QUnit.module('Adding entries', {
+var config = {
   afterEach: function() {
         AMD.destroy();
   }
-}); /*////////////////////////////////*/
+};
+
+QUnit.module('Adding entries', config); /*////////////////////////////////*/
 
 QUnit.test('should add an entry with a basic function', function(assert){
 
@@ -80,37 +81,31 @@ QUnit.test('should add multiple entries', function(assert){
 
 });
 
-// QUnit.test('should not add duplicated entries', function(assert){
+QUnit.test('should not add duplicated module names', function(assert){
 
-//     AMD.define('scadere', ['exports'], function(exports){
+    AMD.define('scadere', ['exports'], function(exports){
 
-//         var scadere = function scadere(x, y) {
-//             return x - y;
-//         };
+        var scadere = function scadere(x, y) {
+            return x - y;
+        };
 
-//         exports["default"] = scadere;
+        exports["default"] = scadere;
 
-//     });
+    });
 
-//     AMD.define('scadere', ['exports'], function(exports){
+    assert.throws(
+        function(){
+            AMD.define('scadere', function(){});
+        },
+        /duplicatedModule/,
+        'should throw on duplicated Module name'
+    );
 
-//         var adunare = function(x, y) {
-//             return x + y;
-//         };
-
-//         exports["default"] = adunare;
-
-//     });
-
-//     var scadere = AMD.require('scadere');
-
-//     assert.equal(scadere(10,2), 8, 'scadere(10, 2) should equal 8');
-
-// });
+});
 
 
 
-QUnit.module('export submodules'); /*////////////////////////////////*/
+QUnit.module('export submodules', config); /*////////////////////////////////*/
 
 QUnit.test('should export submodules', function(assert){
 
@@ -133,7 +128,7 @@ QUnit.test('should export submodules', function(assert){
 
 
 
-QUnit.module('exports different type of values'); /*////////////////////////////////*/
+QUnit.module('exports different type of values', config); /*////////////////////////////////*/
 
 QUnit.test('should export string', function(assert){
 
@@ -148,6 +143,7 @@ QUnit.test('should export string', function(assert){
     var result = AMD.require('different/export/string');
 
     assert.equal(result, 'hello', 'should export correctly strings');
+    assert.equal(AMD.getLength(), 1, 'registry length should be 1');
 
 });
 
@@ -164,6 +160,7 @@ QUnit.test('should export number', function(assert){
     var result = AMD.require('different/export/number');
 
     assert.equal(result, 47, 'should export correctly numbers');
+    assert.equal(AMD.getLength(), 1, 'registry length should be 1');
 
 });
 
@@ -180,6 +177,7 @@ QUnit.test('should export object', function(assert){
     var result = AMD.require('different/export/object');
 
     assert.deepEqual(result, {a:12,b:34}, 'should export correctly object');
+    assert.equal(AMD.getLength(), 1, 'registry length should be 1');
 
 });
 
@@ -196,6 +194,7 @@ QUnit.test('should export array', function(assert){
     var result = AMD.require('different/export/array');
 
     assert.deepEqual(result, [1,2,3,4,5], 'should export correctly array');
+    assert.equal(AMD.getLength(), 1, 'registry length should be 1');
 
 });
 
@@ -212,6 +211,7 @@ QUnit.test('should export undefined', function(assert){
     var result = AMD.require('different/export/undefined');
 
     assert.equal(result, undefined, 'should export correctly undefined');
+    assert.equal(AMD.getLength(), 1, 'registry length should be 1');
 
 });
 
@@ -228,6 +228,7 @@ QUnit.test('should export null', function(assert){
     var result = AMD.require('different/export/null');
 
     assert.equal(result, null, 'should export correctly null');
+    assert.equal(AMD.getLength(), 1, 'registry length should be 1');
 
 });
 
@@ -244,6 +245,7 @@ QUnit.test('should export function which returns', function(assert){
     var result = AMD.require('different/export/function');
 
     assert.equal(result('lume'), 'hello lume', 'should export correctly function');
+    assert.equal(AMD.getLength(), 1, 'registry length should be 1');
 
 });
 
@@ -260,13 +262,14 @@ QUnit.test('should export function which does not returns', function(assert){
     var result = AMD.require('different/export/function/noreturns');
 
     assert.equal(result('lume'), null, 'should export correctly function');
+    assert.equal(AMD.getLength(), 1, 'registry length should be 1');
 
 });
 
 
 
+QUnit.module('instances of objects', config); /*////////////////////////////////*/
 
-QUnit.module('instances of objects'); /*////////////////////////////////*/
 
 
-QUnit.module('updating references'); /*////////////////////////////////*/
+QUnit.module('updating references', config); /*////////////////////////////////*/
