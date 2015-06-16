@@ -1,6 +1,7 @@
 // WIP:
 // - instance of an custom object
 // - should not update reference. export number. update number. next require should have the initial value
+// - dots and slashes in name
 
 var config = {
   afterEach: function() {
