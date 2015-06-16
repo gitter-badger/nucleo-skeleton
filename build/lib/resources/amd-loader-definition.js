@@ -8,6 +8,7 @@ var AMD;
 
     var registry = {};
     var seen = {};
+    var registryLength = 0;
 
     var define = function(name, deps, callback) {
 
@@ -27,6 +28,8 @@ var AMD;
 
         registry[name] = value;
 
+        registryLength++;
+
     };
 
     var require = function(name, submodule) {
@@ -35,7 +38,7 @@ var AMD;
 
         return module[submodule || 'default'];
 
-    }
+    };
 
     function internalRequire(name, referrerName) {
 
@@ -75,7 +78,7 @@ var AMD;
 
         return exports;
 
-    };
+    }
 
     function resolve(child, name) {
 
@@ -103,10 +106,28 @@ var AMD;
         return parentBase.join('/');
     }
 
+    function getLength() {
+        return registryLength;
+    }
+
+    function getRegistry() {
+        return registry;
+    }
+
+    function destroy() {
+
+        registry = {};
+        seen = {};
+        registryLength = 0;
+
+    };
+
     AMD = {
         define: define,
         require: require,
-        registry: registry
+        getRegistry: getRegistry,
+        getLength: getLength,
+        destroy: destroy
     };
 
 })();

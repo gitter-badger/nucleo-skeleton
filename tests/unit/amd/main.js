@@ -5,9 +5,14 @@
 // instance of an custom object
 // should not update reference. export number. update number. next require should have the initial value
 
-QUnit.module('should add entries'); /*////////////////////////////////*/
 
-QUnit.test('Adunare', function(assert){
+QUnit.module('Adding entries', {
+  afterEach: function() {
+        AMD.destroy();
+  }
+}); /*////////////////////////////////*/
+
+QUnit.test('should add an entry with a basic function', function(assert){
 
     AMD.define('adunare', ['exports'], function(exports){
 
@@ -20,26 +25,88 @@ QUnit.test('Adunare', function(assert){
     var adunare = AMD.require('adunare');
 
     assert.equal(adunare(1,2), 3, 'adunare(1, 2) should equal 3');
+    ok(AMD.getRegistry().adunare, 'basic adunare should exist on registry');
+    assert.deepEqual(AMD.getRegistry().adunare.deps, ['exports'], 'adunare deps should be saved correctly');
+    assert.equal(AMD.getLength(), 1, 'registry length should be 1');
 
 });
 
-QUnit.test('Scadere', function(assert){
+QUnit.test('should add multiple entries', function(assert){
+
+    AMD.define('adunare', ['exports'], function(exports){
+
+        var adunare = function adunare(x, y) {return x + y;};
+
+        exports["default"] = adunare;
+
+    });
 
     AMD.define('scadere', ['exports'], function(exports){
 
         var scadere = function scadere(x, y) {
-            return x - y;
+         return x - y;
         };
 
         exports["default"] = scadere;
 
     });
 
+    AMD.define('number', ['exports'], function(exports){
+
+        var result = 47;
+
+        exports["default"] = result;
+
+    });
+
+
+    var adunare = AMD.require('adunare');
     var scadere = AMD.require('scadere');
+    var number = AMD.require('number');
+
+    assert.equal(adunare(1,2), 3, 'adunare(1, 2) should equal 3');
+    ok(AMD.getRegistry().adunare, 'multiple adunare should exist on registry');
+    assert.deepEqual(AMD.getRegistry().adunare.deps, ['exports'], 'adunare deps should be saved correctly');
 
     assert.equal(scadere(10,2), 8, 'scadere(10, 2) should equal 8');
+    ok(AMD.getRegistry().scadere, 'scadere should exist on registry');
+    assert.deepEqual(AMD.getRegistry().scadere.deps, ['exports'], 'scadere deps should be saved correctly');
+
+    assert.equal(number, 47, 'primitive value is saved correctly');
+    ok(AMD.getRegistry().number, 'primitive value should exist on registry');
+    assert.deepEqual(AMD.getRegistry().number.deps, ['exports'], 'scadere deps should be saved correctly');
+
+    assert.equal(AMD.getLength(), 3, 'registry length should be 3');
 
 });
+
+// QUnit.test('should not add duplicated entries', function(assert){
+
+//     AMD.define('scadere', ['exports'], function(exports){
+
+//         var scadere = function scadere(x, y) {
+//             return x - y;
+//         };
+
+//         exports["default"] = scadere;
+
+//     });
+
+//     AMD.define('scadere', ['exports'], function(exports){
+
+//         var adunare = function(x, y) {
+//             return x + y;
+//         };
+
+//         exports["default"] = adunare;
+
+//     });
+
+//     var scadere = AMD.require('scadere');
+
+//     assert.equal(scadere(10,2), 8, 'scadere(10, 2) should equal 8');
+
+// });
 
 
 
