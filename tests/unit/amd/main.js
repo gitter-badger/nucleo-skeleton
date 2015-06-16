@@ -9,7 +9,6 @@ var config = {
   }
 };
 var test = QUnit.test;
-var module = QUnit.module;
 
 
 
