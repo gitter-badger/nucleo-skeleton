@@ -1,19 +1,20 @@
-// define should add one entry in registry. check registry
-// define should add 2 entries without overwriting
-// define should add 4 entries without overwriting
-
-// instance of an custom object
-// should not update reference. export number. update number. next require should have the initial value
+// WIP:
+// - instance of an custom object
+// - should not update reference. export number. update number. next require should have the initial value
 
 var config = {
   afterEach: function() {
         AMD.destroy();
   }
 };
+var test = QUnit.test;
+var module = QUnit.module;
 
-QUnit.module('Adding entries', config); /*////////////////////////////////*/
 
-QUnit.test('should add an entry with a basic function', function(assert){
+
+QUnit.module('Adding entries', config);
+
+test('should add an entry with a basic function', function(assert){
 
     AMD.define('adunare', ['exports'], function(exports){
 
@@ -32,7 +33,7 @@ QUnit.test('should add an entry with a basic function', function(assert){
 
 });
 
-QUnit.test('should add multiple entries', function(assert){
+test('should add multiple entries', function(assert){
 
     AMD.define('adunare', ['exports'], function(exports){
 
@@ -81,7 +82,7 @@ QUnit.test('should add multiple entries', function(assert){
 
 });
 
-QUnit.test('should not add duplicated module names', function(assert){
+test('should not add duplicated module names', function(assert){
 
     AMD.define('scadere', ['exports'], function(exports){
 
@@ -105,9 +106,9 @@ QUnit.test('should not add duplicated module names', function(assert){
 
 
 
-QUnit.module('export submodules', config); /*////////////////////////////////*/
+QUnit.module('export submodules', config);
 
-QUnit.test('should export submodules', function(assert){
+test('should export submodules', function(assert){
 
     AMD.define('different/export/submodules', ['exports'], function(exports){
 
@@ -128,9 +129,9 @@ QUnit.test('should export submodules', function(assert){
 
 
 
-QUnit.module('exports different type of values', config); /*////////////////////////////////*/
+QUnit.module('exports different type of values', config);
 
-QUnit.test('should export string', function(assert){
+test('should export string', function(assert){
 
     AMD.define('different/export/string', ['exports'], function(exports){
 
@@ -147,7 +148,7 @@ QUnit.test('should export string', function(assert){
 
 });
 
-QUnit.test('should export number', function(assert){
+test('should export number', function(assert){
 
     AMD.define('different/export/number', ['exports'], function(exports){
 
@@ -164,7 +165,7 @@ QUnit.test('should export number', function(assert){
 
 });
 
-QUnit.test('should export object', function(assert){
+test('should export object', function(assert){
 
     AMD.define('different/export/object', ['exports'], function(exports){
 
@@ -181,7 +182,7 @@ QUnit.test('should export object', function(assert){
 
 });
 
-QUnit.test('should export array', function(assert){
+test('should export array', function(assert){
 
     AMD.define('different/export/array', ['exports'], function(exports){
 
@@ -198,7 +199,7 @@ QUnit.test('should export array', function(assert){
 
 });
 
-QUnit.test('should export undefined', function(assert){
+test('should export undefined', function(assert){
 
     AMD.define('different/export/undefined', ['exports'], function(exports){
 
@@ -215,7 +216,7 @@ QUnit.test('should export undefined', function(assert){
 
 });
 
-QUnit.test('should export null', function(assert){
+test('should export null', function(assert){
 
     AMD.define('different/export/null', ['exports'], function(exports){
 
@@ -232,7 +233,7 @@ QUnit.test('should export null', function(assert){
 
 });
 
-QUnit.test('should export function which returns', function(assert){
+test('should export function which returns', function(assert){
 
     AMD.define('different/export/function', ['exports'], function(exports){
 
@@ -249,7 +250,7 @@ QUnit.test('should export function which returns', function(assert){
 
 });
 
-QUnit.test('should export function which does not returns', function(assert){
+test('should export function which does not returns', function(assert){
 
     AMD.define('different/export/function/noreturns', ['exports'], function(exports){
 
@@ -268,8 +269,8 @@ QUnit.test('should export function which does not returns', function(assert){
 
 
 
-QUnit.module('instances of objects', config); /*////////////////////////////////*/
+QUnit.module('instances of objects', config);
 
 
 
-QUnit.module('updating references', config); /*////////////////////////////////*/
+QUnit.module('updating references', config);
