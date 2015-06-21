@@ -1,5 +1,6 @@
 // WIP:
 // - instance of an custom object
+// - closures
 // - dots and slashes in name - test relative paths
 
 var config = {
