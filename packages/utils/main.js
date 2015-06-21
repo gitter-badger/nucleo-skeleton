@@ -4,4 +4,4 @@ var isString = function(element){
 
 };
 
-export default is
+export default isString;
