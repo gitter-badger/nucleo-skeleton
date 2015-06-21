@@ -39,8 +39,9 @@ var AMD;
     var require = function(name, submodule) {
 
         var module = internalRequire(name, null);
+        var result = module[submodule || 'default'];
 
-        return module[submodule || 'default'];
+        return cloneObject(result);
 
     };
 
@@ -108,6 +109,29 @@ var AMD;
         }
 
         return parentBase.join('/');
+    }
+
+    function cloneObject(source) {
+        
+        var name, s, i, empty = {}, dest = {};
+        var isNotObject = Object.prototype.toString.call(source) !== "[object Object]";
+        
+        if(isNotObject){
+            return source;
+        }
+
+        for(name in source){
+            // the (!(name in empty) || empty[name] !== s) condition avoids copying properties in "source"
+            // inherited from Object.prototype.  For example, if dest has a custom toString() method,
+            // don't overwrite it with the toString() method that source inherited from Object.prototype
+            s = source[name];
+            if(!(name in dest) || (dest[name] !== s && (!(name in empty) || empty[name] !== s))){
+                dest[name] = cloneObject ? cloneObject(s) : s;
+            }
+        }
+
+        return dest;
+
     }
 
     function getLength() {
