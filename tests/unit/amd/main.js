@@ -1,6 +1,7 @@
 // WIP:
 // - instance of an custom object
 // - closures
+// - tests for not update references in dependencies
 // - dots and slashes in name - test relative paths
 
 var config = {
@@ -326,6 +327,44 @@ test('should not update reference as a plain object', function(assert){
     assert.equal(AMD.getLength(), 1, 'registry length should be 1');
 
 });
+
+// make a grunt task to compile this structure into js qunit tests
+/*
+
+{{#runner
+
+    test('should not update reference as a {{type}}', function(assert){
+
+        AMD.define('different/export/object/{{type}}', ['exports'], function(exports){
+
+            var result = {{value}};
+
+            exports["default"] = result;
+
+        });
+
+        var initialObj = AMD.require('different/export/object/{{type}}');
+
+        {{modifyAction}}
+
+        var finalObj = AMD.require('different/export/object/{{type}}');
+
+        assert.deepEqual(initialObj, {{expectedModifiedValue}}, 'update obj should be locally');
+        assert.deepEqual(finalObj, {{expectedReferenceValue}}, 'should keep reference {{type}}');
+        assert.equal(AMD.getLength(), 1, 'registry length should be 1');
+
+    });
+
+{{tests}}
+
+    {type:'string', value:'a', modifyAction:'{{initialObj.a = "deep/diff"}}', expectedModifiedValue: 'deep/diff', expectedReferenceValue: 'a'},
+    {type:'string', value:'a', modifyAction:'{{initialObj.a = "deep/diff"}}', expectedModifiedValue: 'deep/diff', expectedReferenceValue: 'a'},
+    {type:'string', value:'a', modifyAction:'{{initialObj.a = "deep/diff"}}', expectedModifiedValue: 'deep/diff', expectedReferenceValue: 'a'}
+
+}}
+
+*/
+// END PARSED
 
 test('should not update reference as a deep plain object', function(assert){
 
