@@ -529,3 +529,42 @@ test('should not update reference as a regexp', function(assert){
 
 QUnit.module('instances of objects', config);
 
+
+
+QUnit.module('dependencies', config);
+
+test('should get the correct dependencies', function(assert){
+
+    AMD.define('app', ['exports', 'some/dep/1', 'some/dep/2'], function(exports, dep1, dep2){
+
+        var aDep = dep1['default'];
+        var bDep = dep2['default'];
+
+        var result = aDep + ' ' + bDep;
+
+        exports["default"] = result;
+
+    });
+
+    AMD.define('some/dep/1', ['exports'], function(exports){
+
+        var result = 'a';
+
+        exports["default"] = result;
+
+    });
+
+    AMD.define('some/dep/2', ['exports'], function(exports){
+
+        var result = 'b';
+
+        exports["default"] = result;
+
+    });
+
+    var result = AMD.require('app');
+
+    assert.equal(result, 'a b', 'get correctly 2 dependencies');
+    assert.equal(AMD.getLength(), 3, 'registry length should be 3');
+
+});
