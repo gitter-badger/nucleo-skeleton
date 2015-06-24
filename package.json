@@ -17,12 +17,12 @@
   },
   "homepage": "https://github.com/dobre-robert-marius/testing-ENV",
   "dependencies": {
-    "colors": "^1.0.3",
-    "fs-extra": "^0.18.1",
-    "grunt": "^0.4.5",
-    "grunt-babel": "^4.0.0",
-    "grunt-contrib-concat": "^0.5.1",
-    "grunt-shell": "^1.1.2",
-    "lodash": "^3.7.0"
+    "colors": "1.0.3",
+    "fs-extra": "0.18.1",
+    "grunt": "0.4.5",
+    "grunt-babel": "4.0.0",
+    "grunt-contrib-concat": "0.5.1",
+    "grunt-shell": "1.1.2",
+    "lodash": "3.7.0"
   }
 }
