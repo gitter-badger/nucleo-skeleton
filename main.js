@@ -72,7 +72,7 @@ define('packages/utils/main', ['exports'], function (exports) {
 });
 mainContext.nucleo = mainContext.nc = requirePackage("packages/main/main");
 
-    mainContext.chooseNameFromConfig = 'random stuff';
+    
 
     
 
