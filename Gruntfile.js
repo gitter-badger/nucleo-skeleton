@@ -5,12 +5,13 @@ module.exports = function(grunt) {
     babel: {
       options: {
         modules: 'amdStrict',
+        blacklist: ['useStrict'], // put use strict only once on top of the file...not inside each function
         moduleIds: true
       },
       dist: {
         files: [{
           "expand": true,
-          "cwd": "packages/demo",
+          "cwd": "packages",
           "src": ["**/*.js"],
           "dest": "ephemeral/packages",
           "ext": ".js"
