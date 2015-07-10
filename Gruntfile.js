@@ -1,7 +1,13 @@
+var matchdep = require('matchdep');
+
 module.exports = function(grunt) {
+
+  // load all grunt plugins from node_modules folder
+  matchdep.filterAll('grunt-*').forEach(grunt.loadNpmTasks);
 
   // Project configuration.
   grunt.initConfig({
+    pkg: grunt.file.readJSON('package.json'),
     babel: {
       options: {
         modules: 'amdStrict',
@@ -22,18 +28,43 @@ module.exports = function(grunt) {
       qunit:{
         src:['tests/unit/amd/**/*.js'],
         dest:'ephemeral/tests/demo/tests.js'
+      },
+      lib:{
+        src:['ephemeral/build/main.js'],
+        dest:'main.js'
       }
+    },
+    uglify: {
+        options: {
+            mangle:     true,
+            compress:   true,
+            banner:     '/* <%= pkg.name %> v<%= pkg.version %>  */'
+        },
+        prod:    {
+            files: {
+                'main.js': ['ephemeral/build/main.js']
+            }
+        }
+    },
+    shell: {
+        build_lib: {
+            command: [
+              'cd build/lib/execute',
+              'node main.js'
+            ].join(' && ')
+        }
     }
   });
 
-  // Load the plugin that provides the "uglify" task.
-  grunt.loadNpmTasks('grunt-babel');
-  grunt.loadNpmTasks('grunt-contrib-concat');
 
-  // Default task(s).
   grunt.registerTask('build:tests:mocha', ['concat:qunit']);
   grunt.registerTask('build:tests:jasmine', ['concat:qunit']);
   grunt.registerTask('build:tests:qunit', ['concat:qunit']);
+
+  grunt.registerTask('build:lib:prod', ['shell:build_lib', 'uglify']);
+  grunt.registerTask('build:lib:dev', ['shell:build_lib', 'concat:lib']);
+  grunt.registerTask('build:lib', ['build:lib:dev']);
+
   grunt.registerTask('default', ['babel']);
 
 };
