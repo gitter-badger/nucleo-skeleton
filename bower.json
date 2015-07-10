@@ -1,0 +1,27 @@
+{
+  "name": "AMD-play",
+  "version": "0.0.1",
+  "homepage": "https://github.com/dobre-robert-marius/foundation-ES6-AMD-TDD",
+  "authors": [
+    "robert <dobre_robert_marius@yahoo.com>"
+  ],
+  "description": "Just a place where i can experiment with architectural approaches for building a framework with TDD and ES6",
+  "main": "main.js",
+  "keywords": [
+    "amd",
+    "es6",
+    "tdd"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "ephemeral",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "nucleo-amd": "0.0.4"
+  }
+}
