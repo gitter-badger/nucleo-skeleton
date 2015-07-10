@@ -1,1 +1,0 @@
-define('ceva f random');

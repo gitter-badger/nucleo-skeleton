@@ -3,6 +3,8 @@
   "version": "0.0.1",
   "description": "Just a place where i can experiment with architectural approaches for building a framework with TDD and ES6",
   "main": "main.js",
+  "namespaces":["nucleo", "nc"],
+  "mainPackage":"packages/main/main",
   "scripts": {
     "test": "node tests"
   },

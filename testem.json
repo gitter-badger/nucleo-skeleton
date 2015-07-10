@@ -3,14 +3,14 @@
     "before_tests": "mkdir -p ephemeral",
     "livereload": true,
     "src_files": [
-        "tests/demo_structure/qunit_tests.js",
-        "build/lib/resources/amd-loader-definition.js",
-        "tests/unit/amd/main.js"
+        "packages/**/*.js",
+        "tests/integration/**/*.js",
+        "main.js"
     ],
     "serve_files": [
         "tests/build/mocha/browser/expect.js",
-        "build/lib/resources/amd-loader-definition.js",
-        "tests/unit/amd/main.js"
+        "main.js",
+        "tests/integration/main.js"
     ],
     "launch_in_ci": [
         "PhantomJS"

@@ -8,6 +8,7 @@ module.exports = function(grunt) {
   // Project configuration.
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
+    amdWrapper: grunt.file.read('build/lib/resources/amd-wrapper.js'),
     babel: {
       options: {
         modules: 'amdStrict',
@@ -28,6 +29,14 @@ module.exports = function(grunt) {
       qunit:{
         src:['tests/unit/amd/**/*.js'],
         dest:'ephemeral/tests/demo/tests.js'
+      },
+      packages:{
+        options: {
+          banner: '<%= amdWrapper %>',
+          footer: 'mainContext.<%= pkg.namespaces[0] %> = mainContext.<%= pkg.namespaces[1] %> = requirePackage("<%= pkg.mainPackage %>");'
+        },
+        src:['ephemeral/packages/**/*.js'],
+        dest:'ephemeral/concat/packages/packages.js'
       },
       lib:{
         src:['ephemeral/build/main.js'],
@@ -61,8 +70,8 @@ module.exports = function(grunt) {
   grunt.registerTask('build:tests:jasmine', ['concat:qunit']);
   grunt.registerTask('build:tests:qunit', ['concat:qunit']);
 
-  grunt.registerTask('build:lib:prod', ['shell:build_lib', 'uglify']);
-  grunt.registerTask('build:lib:dev', ['shell:build_lib', 'concat:lib']);
+  grunt.registerTask('build:lib:prod', ['babel', 'concat:packages', 'shell:build_lib', 'uglify']);
+  grunt.registerTask('build:lib:dev', ['babel', 'concat:packages', 'shell:build_lib', 'concat:lib']);
   grunt.registerTask('build:lib', ['build:lib:dev']);
 
   grunt.registerTask('default', ['babel']);
