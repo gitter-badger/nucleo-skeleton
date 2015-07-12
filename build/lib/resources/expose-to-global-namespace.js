@@ -1,1 +1,0 @@
-mainContext.chooseNameFromConfig = 'random stuff';

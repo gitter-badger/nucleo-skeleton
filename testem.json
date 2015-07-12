@@ -1,11 +1,10 @@
 {
     "framework": "qunit",
-    "before_tests": "mkdir -p ephemeral",
+    "before_tests": "grunt",
     "livereload": true,
     "src_files": [
         "packages/**/*.js",
-        "tests/integration/**/*.js",
-        "main.js"
+        "tests/integration/**/*.js"
     ],
     "serve_files": [
         "tests/build/mocha/browser/expect.js",

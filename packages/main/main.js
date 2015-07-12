@@ -1,5 +1,11 @@
-var exportedToGlobalNamespace = {};
+import arrows from 'packages/arrows/functions';
+import klasses from 'packages/classes/main';
 
-exportedToGlobalNamespace.version = '0.0.1';
+var app = {};
 
-export default exportedToGlobalNamespace;
+app.version = '0.0.1';
+
+app.arrows = arrows;
+app.klasses = klasses;
+
+export default app;

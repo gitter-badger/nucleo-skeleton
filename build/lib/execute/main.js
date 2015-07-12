@@ -31,9 +31,7 @@ var makeGlobals = function(){
         files:[
             'insert-license',
             'insert-amd-loader',
-            'insert-packages',
-            'insert-unit-tests',
-            'insert-exposer-to-global'
+            'insert-packages'
         ]
     };
 
