@@ -1,5 +1,5 @@
-# foundation ES6 AMD TDD
-Just a place where i can experiment with architectural approaches for building a framework with TDD and ES6
+# Nucleo - Skeleton
+Skeleton structure on top of which it can be built a framework using AMD, ES6 and TDD
 
 ### Install
 	npm install
