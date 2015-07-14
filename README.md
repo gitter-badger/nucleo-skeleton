@@ -1,6 +1,8 @@
 # Nucleo - Skeleton
 Skeleton structure on top of which it can be built a framework using AMD, ES6 and TDD
 
+[![Build Status](https://travis-ci.org/dobre-robert-marius/nucleo-skeleton.svg?branch=master)](https://travis-ci.org/dobre-robert-marius/nucleo-skeleton)
+
 ### Install
 	npm install
 	bower install
