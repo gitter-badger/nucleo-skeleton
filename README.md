@@ -1,4 +1,6 @@
 # Nucleo - Skeleton
+
+[![Join the chat at https://gitter.im/dobre-robert-marius/nucleo-skeleton](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/dobre-robert-marius/nucleo-skeleton?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 Skeleton structure on top of which it can be built a framework using AMD, ES6 and TDD
 
 [![Build Status](https://travis-ci.org/dobre-robert-marius/nucleo-skeleton.svg?branch=master)](https://travis-ci.org/dobre-robert-marius/nucleo-skeleton)
